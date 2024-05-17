@@ -1,4 +1,4 @@
-const client = require('/home/krauchelli/Documents/chatbot-discord/index.js');
+const client = require('../index');
 
 const analyzeSentiment = async (sentence) => {
     return sentence;
