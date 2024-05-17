@@ -1,6 +1,8 @@
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits, IntentsBitField } = require('discord.js');
+const { Client, Events, GatewayIntentBits, IntentsBitField, GuildTextThreadManager } = require('discord.js');
 const dotenv = require('dotenv');
+const { handleMessage } = require('./src/controller');
+//const { handleMessage } = require('./src/controller');
 
 //running dotenv
 dotenv.config();
@@ -11,7 +13,7 @@ const client = new Client({
         GatewayIntentBits.Guilds,
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.MessageContent
+        IntentsBitField.Flags.MessageContent,
     ] 
 });
 
@@ -23,15 +25,9 @@ client.once(Events.ClientReady, readyClient => {
 });
 
 //test slash command
-client.on('messageCreate', async message => {
-    console.log(message.content);
-    if (message.content === 'ping') {
-        message.channel.send('Pong.');
-    }
-    else if (message.content === 'Pong.') {
-       message.channel.send('ping'); 
-    }
-});
+client.on('messageCreate', handleMessage);
 
 // Log in to Discord with your client's token
 client.login(token);
+
+module.exports = client;
