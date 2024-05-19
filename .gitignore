@@ -1,3 +1,4 @@
 node_modules
+src/models/mood_predict.h5
 .env
 package-lock.json
