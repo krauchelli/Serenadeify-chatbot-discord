@@ -1,7 +1,22 @@
 const client = require('../index');
 
 const analyzeSentiment = async (sentence) => {
-    return sentence;
+    // promise running python
+    let runPy = new Promise(function(success, nosuccess) {
+        const { spawn } = require('child_process');
+        const pyprog = spawn('python', ['/home/krauchelli/Documents/Serenadeify-chatbot-discord/src/models/test.py', sentence]);
+        pyprog.stdout.on('data', function(data) {
+            success(data);
+        });
+        pyprog.stderr.on('data', (data) => {
+            nosuccess(data);
+        });
+    });
+    
+    // pass back the result
+    return runPy.then(function(data) {
+        return data.toString();
+    });
 }
 
 // Function to handle incoming messages
@@ -30,7 +45,8 @@ const handleMessage = async (message) => {
         const messageAuthor = message.author.username;
         const sentimentText = message.content.slice('i feel like'.length).trim();
         const sentenceJson = JSON.stringify(sentimentText);
-        console.log(sentenceJson);
+        const sentimentResult = await analyzeSentiment(sentenceJson);
+        console.log(sentimentResult);
         message.reply(`I see!`);
     }
     console.log(message.content);
