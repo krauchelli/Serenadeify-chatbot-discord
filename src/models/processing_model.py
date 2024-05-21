@@ -1,3 +1,5 @@
+import nltk
+nltk.download('stopwords')
 import re
 import string
 import numpy as np
@@ -28,7 +30,7 @@ def predict_text(text):
     preprocessed_text = preprocessing_predict(text)
 
     # Load the model
-    model = load_model('C:/Users/kraun/OneDrive/Documents/archivenandatugas/SEMESTER 4/Temu Kembali Informasi/Tugas Akhir/Serenadeify-chatbot-discord/src/models/mood_predict.h5')
+    model = load_model('mood_predict.h5')
     # Make a prediction
     prediction = model.predict(preprocessed_text)
 
