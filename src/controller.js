@@ -1,22 +1,20 @@
-const client = require('../index');
+const request = require('request-promise');
 
 const analyzeSentiment = async (sentence) => {
-    // promise running python
-    let runPy = new Promise(function(success, nosuccess) {
-        const { spawn } = require('child_process');
-        const pyprog = spawn('python', ['/home/krauchelli/Documents/Serenadeify-chatbot-discord/src/models/test.py', sentence]);
-        pyprog.stdout.on('data', function(data) {
-            success(data);
-        });
-        pyprog.stderr.on('data', (data) => {
-            nosuccess(data);
-        });
-    });
-    
-    // pass back the result
-    return runPy.then(function(data) {
-        return data.toString();
-    });
+    try {
+        const options = {
+            method: 'POST',
+            uri: 'http://localhost:5000/predict',
+            body: {text: sentence},
+            json: true
+        }
+        const response = await request(options);
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+
 }
 
 // Function to handle incoming messages
@@ -42,11 +40,9 @@ const handleMessage = async (message) => {
     
     // Check if the message contains 'i feel like' and inside a thread
     if (message.content.includes('i feel like') && message.channel.isThread()) {
-        const messageAuthor = message.author.username;
         const sentimentText = message.content.slice('i feel like'.length).trim();
-        const sentenceJson = JSON.stringify(sentimentText);
-        const sentimentResult = await analyzeSentiment(sentenceJson);
-        console.log(sentimentResult);
+        await analyzeSentiment(sentimentText);
+        console.log(`result of sentiment analysis: ${analyzeSentiment}`);
         message.reply(`I see!`);
     }
     console.log(message.content);
