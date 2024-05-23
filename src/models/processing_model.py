@@ -1,8 +1,7 @@
-import nltk
-nltk.download('stopwords')
 import re
 import string
 import numpy as np
+import tensorflow as tf
 from nltk.corpus import stopwords
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -30,14 +29,10 @@ def predict_text(text):
     preprocessed_text = preprocessing_predict(text)
 
     # Load the model
-    model = load_model('mood_predict.h5')
+    model = load_model('mood_predictv2.h5')
     # Make a prediction
     prediction = model.predict(preprocessed_text)
 
     y = np.argmax(prediction, axis=1)
 
     return f'The predicted mood is {y} for the full result of prediction {prediction}'
-
-text = 'i am happy, i cant endure this overflowing joy'
-result = predict_text(text)
-print(result)
