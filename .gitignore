@@ -1,5 +1,4 @@
 node_modules
-src/models/mood_predictv2.h5
 src/models/__pycache__
 src/training
 .env
