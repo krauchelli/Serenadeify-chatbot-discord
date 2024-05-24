@@ -17,6 +17,14 @@ const analyzeSentiment = async (sentence) => {
 
 }
 
+// function to handle emotion analysis
+const analyzeEmotion = async (sentimentResult) => {
+    const emotion = sentimentResult.prediction;
+    const emotionIndex = ['anger', 'sadness', 'joy', 'anger', 'fear', 'surprise'];
+
+return (emotion >= 0 && emotion <= 5) ? emotionIndex[emotion] : 'neutral';
+}
+
 // Function to handle incoming messages
 const handleMessage = async (message) => {
     if(message.author.bot) return;
@@ -41,9 +49,12 @@ const handleMessage = async (message) => {
     // Check if the message contains 'i feel like' and inside a thread
     if (message.content.includes('i feel like') && message.channel.isThread()) {
         const sentimentText = message.content.slice('i feel like'.length).trim();
-        await analyzeSentiment(sentimentText);
-        console.log(`result of sentiment analysis: ${analyzeSentiment}`);
-        message.reply(`I see!`);
+        const sentimentResult = await analyzeSentiment(sentimentText);
+        console.log(`result of sentiment analysis: ${sentimentResult.prediction}`);
+        
+        // analyze the emotion
+        const emotion = await analyzeEmotion(sentimentResult);
+        message.reply(`I see! I think i need to recommend you a song that fits your mood, which is ${emotion}. Give me a moment...`);
     }
     console.log(message.content);
 };
