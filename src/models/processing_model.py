@@ -33,6 +33,8 @@ def predict_text(text):
     # Make a prediction
     prediction = model.predict(preprocessed_text)
 
-    y = np.argmax(prediction, axis=1)
+    y = np.argmax(prediction, axis=1)[0]
 
-    return f'The predicted mood is {y} for the full result of prediction {prediction}'
+    print(f'The predicted mood is {y} for the full result of prediction {prediction}')
+
+    return y
