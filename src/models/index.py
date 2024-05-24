@@ -11,8 +11,8 @@ def predict():
     data = request.get_json()
     print(data)
     text = data['text']
-    prediction = predict_text(text)
-
+    prediction = int(predict_text(text))
+    print(f'printing prediction value: {prediction}')
     return jsonify({'prediction': prediction})
 
 
