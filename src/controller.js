@@ -20,7 +20,7 @@ const analyzeSentiment = async (sentence) => {
 // function to handle emotion analysis
 const analyzeEmotion = async (sentimentResult) => {
     const emotion = sentimentResult.prediction;
-    const emotionIndex = ['anger', 'sadness', 'joy', 'anger', 'fear', 'surprise'];
+    const emotionIndex = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'];
 
 return (emotion >= 0 && emotion <= 5) ? emotionIndex[emotion] : 'neutral';
 }
