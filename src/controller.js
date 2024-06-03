@@ -1,5 +1,6 @@
 const request = require('request-promise');
 
+// function to handle sentiment analysis
 const analyzeSentiment = async (sentence) => {
     try {
         const options = {
@@ -23,6 +24,23 @@ const analyzeEmotion = async (sentimentResult) => {
     const emotionIndex = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'];
 
 return (emotion >= 0 && emotion <= 5) ? emotionIndex[emotion] : 'neutral';
+}
+
+// function to handle song recommendation
+const recommendSong = async (emotion) => {
+    try {
+        const options = {
+            method: 'POST',
+            uri: 'http://localhost:5000/recommend',
+            body: {prediction: emotion},
+            json: true
+        }
+        const response = await request(options);
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
 }
 
 // Function to handle incoming messages
