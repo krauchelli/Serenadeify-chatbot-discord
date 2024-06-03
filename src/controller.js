@@ -73,6 +73,10 @@ const handleMessage = async (message) => {
         // analyze the emotion
         const emotion = await analyzeEmotion(sentimentResult);
         message.reply(`I see! I think i need to recommend you a song that fits your mood, which is ${emotion}. Give me a moment...`);
+
+        // recommend a song
+        const resultSong = await recommendSong(sentimentResult.prediction);
+        message.reply(`I recommend you to listen to: ${resultSong.recommendation}`);
     }
     console.log(message.content);
 };
