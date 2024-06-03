@@ -13,8 +13,8 @@ songList = pd.read_csv(songCsv)
 # print(songList)
 # songList.head()
 
-# function to read get the prediction
-def getPrediction(predictedY):
+# function to read get the recommendation
+def getRecommendation(predictedY):
     # getting the index of the maximum value
     index = predictedY
     # filtered the song list based on the index
