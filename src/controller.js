@@ -76,7 +76,12 @@ const handleMessage = async (message) => {
 
         // recommend a song
         const resultSong = await recommendSong(sentimentResult.prediction);
-        message.reply(`I recommend you to listen to: ${resultSong.recommendation}`);
+        let reply = 'I recommend you to listen to:\n';
+        for (let i = 0; i < resultSong.recommendation.length; i++) {
+            reply += `- ${resultSong.recommendation[i][0]} by ${resultSong.recommendation[i][1]}\n`;
+        }
+        message.reply(reply);
+        // message.reply(`I recommend you to listen to: ${resultSong.recommendation}`);
     }
     console.log(message.content);
 };
