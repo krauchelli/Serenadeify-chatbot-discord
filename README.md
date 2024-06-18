@@ -14,9 +14,9 @@ It utilizes a sentiment analysis model to understand the user's emotional state 
 
 ## Requirements
 Python:
-* Version 3.10 is highly recommended for compatibility with TensorFlow 2.10.
+* Version 3.10 is highly advised for compatibility with TensorFlow 2.10.
 
-TensorFlow (Optional):
+TensorFlow:
 
 If you plan to leverage GPU acceleration for processing, TensorFlow 2.10 is recommended. However, this requires specific hardware configurations:
 * CUDA Toolkit: version 11.2 or later, as recommended by TensorFlow's compatibility guidelines (https://www.tensorflow.org/guide/gpu).
